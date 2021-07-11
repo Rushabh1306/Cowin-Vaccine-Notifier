@@ -93,11 +93,6 @@ if __name__=='__main__':
     value = input("Enter District or Pincode : ")
     pincode = int(value)
     result = forPincode(pincode)
-    sendEmails(result)
-
-    
-
-    
-    
+    # sendEmails(result)
 
 
