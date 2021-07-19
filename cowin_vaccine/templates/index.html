@@ -2,6 +2,22 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Required Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+
+      $(document).ready(function()
+      {
+            var $states_var = $("#statelist");
+                $districts_var = $("#districtlist");
+
+                $options = $districts_var.find('option');
+                $states_var.on('change', function()
+                {
+                    $districts_var.html($options.filter('[value="'+this.value+'"]'))
+                }).trigger('change');
+      });
+    </script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -95,12 +111,33 @@
               </li>
               
             </ul>
-            
+            <!-- Forms -->
             <div class="tab-content m-3" id="pills-tabContent">
                 <form method='post' action="">
                     {% csrf_token %}
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"><a>Enter Your PIN Code</a>  <input type="number" name = 'pin' placeholder="Ex.380000" >      <input type="Submit"></div>
-              <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"><a>Enter Your District</a>       <input type="text" name = 'dist' placeholder="Ex.Ahmedabad" >      <input type="Submit"></div>
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                      <a>Enter Your PIN Code</a>  
+                      <input type="number" name = 'pin' placeholder="Ex.380000" >      
+                      <input type="Submit"></div>
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                      <a>Enter Your District</a>
+
+                      <select name="state" id="statelist" >
+                        <option disabled selected="true">--Select State--</option>
+                        {% for state in states %}
+                        <option value = "{{state.state_id}}">{{state.state_name}}</option>
+                        {% endfor %}
+                      </select>    
+                      
+                      <select name="dist" id="districtlist" >
+                        <option disabled selected="true">--Select State--</option>
+                        {% for district in districts %}
+                        <option value = "{{district.district_id}}">{{district.district_name}}</option>
+                        {% endfor %}
+                      </select>     
+
+                      <input type="text" name = 'dist' placeholder="Ex.Ahmedabad" >      
+                      <input type="Submit"></div>
                 </form>
                 <div id="myBtnContainer">
               <button class="btn active" onclick="filterSelection('all')"> Age 18+</button>

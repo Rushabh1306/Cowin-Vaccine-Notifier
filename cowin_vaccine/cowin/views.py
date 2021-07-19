@@ -12,6 +12,7 @@ def indexView(request):
     context['districts'] = districts
     data = None
     if request.method=='POST':
+        print("Post method")
         if request.POST['pin']:
             data = forPincode(int(request.POST['pin']))
         if request.POST['dist']:
