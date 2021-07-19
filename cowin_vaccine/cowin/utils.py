@@ -10,16 +10,15 @@ today_date = datetime.now().strftime("%d-%m-%Y")
 
 #Data for pincode
 def forPincode(pincode):
-    params = {'pincode':pincode,'date':"19-07-2021"}
+    params = {'pincode':pincode,'date':today_date}
     response = requests.get(pincode_base_url,params)
     response = response.json()
-    print(response)
     list_of_centers = fetch_required_data(response)
     return list_of_centers
     
 # Data for district
 def forDistrict(district_id):
-    params = {'district_id':district_id,'date':'08-07-2021'}
+    params = {'district_id':district_id,'date':today_date}
     response = requests.get(district_base_url,params)
     response = response.json()
     list_of_centers = fetch_required_data(response)
@@ -32,6 +31,7 @@ def fetch_required_data(response):
     for center in response['centers']:
         for session in center['sessions']:
             context = {}
+            context['date']=session['date']
             context['centre_name'] = center["name"]
             context['address'] = center["address"]
             context['fee_type'] = center["fee_type"]
@@ -94,7 +94,6 @@ if __name__=='__main__':
     value = input("Enter District or Pincode : ")
     pincode = int(value)
     result = forPincode(pincode)
-    print(result)
     # sendEmails(result)
 
 

@@ -116,11 +116,13 @@
                   <tr>
                     <th>Date</th>
                     <th>Center Name</th>
-                    <th>District</th>
+                    <th>Address</th>
                     <th>Fee type</th>
-                    <th>Available Capacity</th>
+                    <th>Available dose 1</th>
+                    <th>Available dose 2</th>
                     <th>Age Limit</th>
                     <th>Vaccine</th>
+                    <th>Slots</th>
                     <th>Book</th>
                   </tr>
                   {% for info in data %}
@@ -128,11 +130,13 @@
 
                     <td>{{ info.date }}</td>
                     <td>{{ info.centre_name }}</td>
-                    <td>{{ info.district_name }}</td>
+                    <td>{{ info.address }}</td>
                     <td>{{ info.fee_type }}</td>
-                    <td>{{ info.available_capacity }}</td>
-                    <td>{{ info.min_age_limit }}</td>
+                    <td>{{ info.dose1 }}</td>
+                    <td>{{ info.dose2 }}</td>
+                    <td>{{ info.age }}</td>
                     <td>{{ info.vaccine }}</td>
+                    <td>{{ info.slots }}</td>
                     <td><a href="https://selfregistration.cowin.gov.in/">BookNow!</a>}</td>
                   </tr>
                   {% endfor %}   
