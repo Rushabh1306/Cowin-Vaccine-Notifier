@@ -14,7 +14,7 @@
                 $options = $districts_var.find('option');
                 $states_var.on('change', function()
                 {
-                    $districts_var.html($options.filter('[value="'+this.value+'"]'))
+                    $districts_var.html($options.filter('[data="'+this.value+'"]'))
                 }).trigger('change');
       });
     </script>
@@ -52,7 +52,7 @@
             </li>
             
             <li class="nav-item" role="presentation">
-              <a  href="first.html" button class="nav-link" id="pills-profile-tab"   aria-controls="pills-profile" aria-selected="false">Get Notification</button>
+              <a  href="{% url 'notification' %}" button class="nav-link" id="pills-profile-tab"   aria-controls="pills-profile" aria-selected="false">Get Notification</button>
             </li>
             
           </ul>
@@ -119,8 +119,9 @@
                       <a>Enter Your PIN Code</a>  
                       <input type="number" name = 'pin' placeholder="Ex.380000" >      
                       <input type="Submit"></div>
+
                     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                      <a>Enter Your District</a>
+                      <a>Enter Your State : </a>
 
                       <select name="state" id="statelist" >
                         <option disabled selected="true">--Select State--</option>
@@ -128,18 +129,17 @@
                         <option value = "{{state.state_id}}">{{state.state_name}}</option>
                         {% endfor %}
                       </select>    
-                      
+                      <a>Enter Your District : </a>
                       <select name="dist" id="districtlist" >
-                        <option disabled selected="true">--Select State--</option>
+                        <option disabled selected="true">--Select District--</option>
                         {% for district in districts %}
-                        <option value = "{{district.district_id}}">{{district.district_name}}</option>
+                          <option data = "{{district.state_id}}" value = "{{district.district_id}}">{{district.district_name}}</option>
                         {% endfor %}
                       </select>     
-
-                      <input type="text" name = 'dist' placeholder="Ex.Ahmedabad" >      
+                      <!-- <input type="text" name = 'dist' placeholder="Ex.Ahmedabad" >       -->
                       <input type="Submit"></div>
                 </form>
-                <div id="myBtnContainer">
+                <!-- <div id="myBtnContainer">
               <button class="btn active" onclick="filterSelection('all')"> Age 18+</button>
               <button class="btn" onclick="filterSelection('cars')"> Age 45+</button>
               <button class="btn" onclick="filterSelection('animals')"> Covishield</button>
@@ -147,7 +147,7 @@
               <button class="btn" onclick="filterSelection('colors')"> Sputnik V</button>
               <button class="btn" onclick="filterSelection('colors')"> Paid</button>
               <button class="btn" onclick="filterSelection('colors')"> Free</button>
-                  </div>
+                  </div> -->
                 <table class="table table-bordered table-warning" style="overflow: scroll;">
                   
                   <tr>
@@ -174,7 +174,7 @@
                     <td>{{ info.age }}</td>
                     <td>{{ info.vaccine }}</td>
                     <td>{{ info.slots }}</td>
-                    <td><a href="https://selfregistration.cowin.gov.in/">BookNow!</a>}</td>
+                    <td><a href="https://selfregistration.cowin.gov.in/">BookNow!</a></td>
                   </tr>
                   {% endfor %}   
                 </table>
