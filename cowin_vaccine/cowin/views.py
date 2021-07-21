@@ -1,5 +1,7 @@
+from .forms import UserForm, FilterForm, UserFilterForm
+from django.contrib import messages
 from django.http.response import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .utils import forDistrict, forPincode
 from .models import StatesList, DistrictList
 
@@ -23,4 +25,13 @@ def indexView(request):
 
 def notificationView(request):
     context = {}
+    user_form = UserFilterForm()
+    print(request.POST)
+    if request.method=='POST':
+        user_form = UserFilterForm(request.POST)
+        print(user_form)
+        email = user_form.cleaned_data['email']
+        if user_form.is_valid():
+            user_form.save()
+    context['user_form']=user_form
     return render(request,'notifications.html',context)

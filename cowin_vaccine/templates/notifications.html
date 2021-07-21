@@ -1,4 +1,7 @@
 {% load static %}
+
+{% load crispy_forms_tags %}
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -34,32 +37,18 @@
             </li>
             
           </ul>
-          </div>
-          <div class="container">
-            <a>Enter Your name</a>       <input type="text" name = 'dist' placeholder="Ex.abc" >
-          </div>
-          <div class="container">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-            <label class="form-check-label" for="flexRadioDefault1">
-              18+
-            </label>
-          </div>
-        </div>
-        <div class="container">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-            <label class="form-check-label" for="flexRadioDefault2">
-              45+
-            </label>
-          </div>
-        </div>
-        <div class="container">
-          <a>Enter Your District</a>       <input type="text" name = 'dist' placeholder="Ex.Ahmedabad" >
-            <a>Enter Your Pincode</a>       <input type="number" name = 'dist' placeholder="Ex.380000" >
-        </div>
-        <div class="container">
-        <input type="submit" name = 'submit' >
+    </div>
+    <div class="container">
+      <form action="" method="POST">
+          {% csrf_token %}
+          {{ user_form | crispy }}
+          {{ filter_form | crispy }}
+        <input type="submit" value="submit">
+      </form>
+      
+    </div>
+          
+          
         </div>
     <!-- Optional JavaScript; choose one of the two! -->
 
