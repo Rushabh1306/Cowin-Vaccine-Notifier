@@ -4,12 +4,14 @@ import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cowin_vaccine.settings')
 django.setup()
 
-#mail imports
+#Required Libraries
 import email
 import smtplib
-
-#url library
 import requests
+from datetime import datetime
+
+#Environment setup
+from decouple import config
 
 # In-project resources
 from cowin.models import UserFilter
@@ -24,11 +26,12 @@ all_users = UserFilter.objects.all()
 
 def collectResult(users):
     for user in users:
-        list_of_centers = forPincode(i.pincode)
+        list_of_centers = forPincode(user.pincode)
         sendEmails(list_of_centers,user.email)
 
 
-
+# os.environ['mail_sender']="rushabhsoni1306@gmail.com"
+# os.environ['mail_password']="btuzevuvayrubtbl"
 
 
 #Data for pincode
@@ -80,12 +83,12 @@ def sendEmails(list_of_centers,receiver):
     mail_receiver = receiver
     
     #Sender Mail Authentication
-    mail_sender = "rushabhsoni1306@gmail.com"
-    mail_password = "sender_password"
+    mail_sender = config('MAIL_SENDER')
+    mail_password = config('MAIL_PASSWORD')
 
     #content of mail
     mail_subject = "Vaccine Slot Alert"
-    content_header = "Vaccine Guide Slot Availability Status\nHello {mail_receiver}"
+    content_header = "Vaccine Guide Slot Availability Status\nHello {receiver}"
     content = "\n----------------------------------------------------------------\n".join([create_output_message(session) for session in list_of_centers])
     content_footer = "\nThanks!\n Vaccine Guide Team"
 
@@ -112,3 +115,4 @@ def sendEmails(list_of_centers,receiver):
     print('Not Delivered!')
 
 
+collectResult(all_users)
